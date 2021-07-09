@@ -1,0 +1,51 @@
+<div>
+  <div class="submit-form col-md-6">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" required [(ngModel)]="ticket.title" name="title" />
+      </div>
+
+      <div class="form-group">
+        <label for="site_url">Site URL</label>
+        <input type="url" class="form-control" id="site_url" required [(ngModel)]="ticket.site_url" name="site_url" />
+      </div>
+
+      <div class="form-group">
+        <label for="gaptime">Gap time</label>
+        <input type="number" class="form-control" id="gaptime" required [(ngModel)]="ticket.gaptime" name="gaptime" />
+      </div>
+
+      <!-- <div class="form-group" disabled>
+        <label for="last_status">Last status</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" [checked]="ticket.last_status" aria-label="Checkbox for last_status">
+            </div>
+          </div>
+          <input type="text" class="form-control" disabled aria-label="Text input for last_status" [value]="ticket.last_status? 'Ready' : 'Sold out'">
+        </div>
+      </div>
+
+      <div class="form-group" disabled>
+        <label for="activated">Activated</label>
+        <div class="input-group mb-6">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" [checked]="ticket.activated" aria-label="Checkbox for activated">
+            </div>
+          </div>
+          <input type="text" class="form-control" disabled aria-label="Text input for activated" [value]="ticket.activated? 'Activated' : 'Deactivated'">
+        </div>
+      </div> -->
+
+      <button (click)="saveTicket()" class="btn btn-primary">Submit</button>
+    </div>
+
+    <!-- <div *ngIf="submitted">
+      <h4 class="alert alert-success">Ticket was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newTicket()">Add</button>
+    </div> -->
+  </div>
+</div>

@@ -1,0 +1,57 @@
+.list {
+    text-align: left;
+    margin: auto;
+  }
+
+.active {
+  background-color: #bbbbbb;
+}
+
+.md {
+  text-align: center;
+}
+
+.btn-sm {
+  line-height: 1;
+}
+
+.page-contain {
+  display: inline-block;
+}
+
+.pagging {
+  float: left;
+}
+
+.page-items {
+  float: right;
+  text-align: right;
+}
+
+#site-table tr,
+#site-table td,
+#site-table th{
+  line-height: 1;
+  vertical-align: middle;
+}
+
+#site-table thead th{
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.checkbox-lg .custom-control-label::before, 
+.checkbox-lg .custom-control-label::after {
+  top: .8rem;
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.checkbox-lg .custom-control-label {
+  padding-top: 13px;
+  padding-left: 6px;
+}
+
+.custom-control {
+  top: -12px;
+}

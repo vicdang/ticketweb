@@ -1,0 +1,65 @@
+<div class="list col-md-10">
+  <div class="col-md-12">
+    <h4>Tickets List</h4>
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-append">
+          <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="title" />
+          <button class="btn btn-outline-secondary" type="button" (click)="retrieveTickets()">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <table class="table" id="site-table">
+      <thead>
+        <tr>
+          <th scope="col" class="col-1">#</th>
+          <th scope="col" class="col-2">Title</th>
+          <th scope="col" class="col-3">Url</th>
+          <th scope="col" class="col-2 md">Gap Time</th>
+          <th scope="col" class="col-2 md">Last Status</th>
+          <th scope="col" class="col-1 md">Activated</th>
+          <th scope="col" class="col-1 md">_</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="" *ngFor="let ticket of tickets| paginate : {
+            itemsPerPage: pageSize,
+            currentPage: page,
+            totalItems: count
+          }; let i = index" [class.active]="i == currentIndex" (click)="setActiveTicket(ticket, i)">
+          <th scope="row" class="md">{{ i + 1 }}</th>
+          <td>{{ ticket.title }}</td>
+          <td>{{ ticket.site_url }}</td>
+          <td class="md">{{ ticket.gaptime | number }}</td>
+          <td class="md">{{ ticket.last_status? "Ready" : "Sold out" }}</td>
+          <!-- <td class="md"><input class="form-check-input" type="checkbox" value="" id="" [checked]="ticket.activated"></td> -->
+          <td class="md"><div class="custom-control custom-checkbox checkbox-lg">
+            <input type="checkbox" class="custom-control-input" [id]="'checkbox-' + i" [checked]="ticket.activated" disabled>
+            <label class="custom-control-label" [for]="'checkbox-' + i"></label>
+          </div></td>
+          <td class="md"><a class="btn btn-warning btn-sm" routerLink="/ticket/{{ ticket.id }}">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-md-12 page-contain">
+      <div class="col-md-8 pagging">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+          (pageChange)="handlePageChange($event)">
+        </pagination-controls>
+      </div>
+      <div class="col-md-3 page-items">
+        Items per Page:
+        <select class="form-select form-select-lg mb-3" (change)="handlePageSizeChange($event)">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button class="m-3 btn btn-sm btn-dark" (click)="removeAllTickets()">
+      Remove All
+    </button>
+  </div>
+</div>

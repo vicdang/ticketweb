@@ -1,0 +1,60 @@
+<div>
+  <div *ngIf="currentTicket.id" class="edit-form col-md-6">
+    <h4>Ticket</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="currentTicket.title" name="title" />
+      </div>
+      <div class="form-group">
+        <label for="site_url">Site URL</label>
+        <input type="url" class="form-control" id="site_url" [(ngModel)]="currentTicket.site_url" name="site_url" />
+      </div>
+
+      <div class="form-group">
+        <label for="gaptime">Gap Time</label>
+        <input type="number" class="form-control" id="gaptime" [(ngModel)]="currentTicket.gaptime" name="gaptime" />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Last Status:</strong></label>
+        <!-- <span *ngIf="currentTicket.last_status" class="alert-success">Ready</span>
+        <span *ngIf="!currentTicket.last_status" class="alert-success">Sold out</span> -->
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" [checked]="currentTicket.last_status" aria-label="Checkbox for last_status" (click)="updateLastStatus(!currentTicket.last_status)">
+            </div>
+          </div>
+          <input type="text" class="form-control" disabled aria-label="Text input for last_status" [value]="currentTicket.last_status? 'Ready' : 'Sold out'">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label><strong>Activated:</strong></label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" [checked]="currentTicket.activated" aria-label="Checkbox for activated" (click)="updateActivated(!currentTicket.activated)">
+            </div>
+          </div>
+          <input type="text" class="form-control" disabled aria-label="Text input for activated" [value]="currentTicket.activated? 'Activated' : 'Deactivated'">
+        </div>
+      </div>
+    </form>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" (click)="updateTicket()">
+        Update
+      </button>&nbsp;
+      <button type="button" class="btn btn-danger" (click)="deleteTicket()">
+        Delete
+      </button>
+    </div>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentTicket.id">
+    <br />
+    <p>Cannot access this Ticket...</p>
+  </div>
+</div>

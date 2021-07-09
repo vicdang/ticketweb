@@ -1,0 +1,33 @@
+{
+  "name": "ticket_keeper",
+  "version": "1.0.0",
+  "description": "web provisioning for ticket keeper",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vicdang/ticket_keeper.git"
+  },
+  "keywords": [
+    "ticketkeeper"
+  ],
+  "author": "Vic Dang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vicdang/ticket_keeper/issues"
+  },
+  "homepage": "https://github.com/vicdang/ticket_keeper#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "mysql2": "^2.2.5",
+    "read-excel-file": "^5.2.6",
+    "sequelize": "^6.6.5"
+  }
+}

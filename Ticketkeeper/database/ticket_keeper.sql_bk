@@ -1,0 +1,43 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+DROP TABLE IF EXISTS `site_config`;
+
+CREATE TABLE `site_config` (
+	`id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+   `site_id` int(10) UNSIGNED DEFAULT 0,
+	`site_url` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+	`gap_time` tinyint(4) DEFAULT 60,
+	`create_date` timestamp NULL DEFAULT current_timestamp(),
+   `last_modify` timestamp NULL DEFAULT current_timestamp(),
+	`last_execute` timestamp NULL DEFAULT current_timestamp(),
+	`last_status` tinyint(4) DEFAULT 0,
+   `is_active` bit(1) DEFAULT b'1',
+	PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+INSERT INTO `site_config` (`id`, `site_id`, `site_url`, `gap_time`, `create_date`, `last_modify`, `last_execute`, `last_status`, `is_active`) VALUES
+(1,1,'https://www.etix.com/ticket/online/performanceSale.do?method=selectPerformance&performance_id=4969849&country=US&cobrand=zooamp&language=en',60,'2021-06-07 00:05:06','2021-06-07 00:05:06',NULL,0,1),
+(2,2,'https://www.etix.com/ticket/online/performanceSale.do?method=selectPerformance&performance_id=7429396&country=US&searchType=organization&language=en',60,'2021-06-08 00:05:06','2021-06-08 00:05:06',NULL,0,1),
+(3,3,'https://www.etix.com/ticket/p/3844046/mother-mother-the-inside-tour-2022-portland-wonder-ballroom',60,'2021-06-09 00:05:06','2021-06-09 00:05:06',NULL,0,1),
+(4,4,'https://www.etix.com/ticket/p/6094078/marc-rebillet-third-dose-tour-asheville-rabbit-rabbit?partner_id=240',60,'2021-06-10 00:05:06','2021-06-10 00:05:06',NULL,0,1),
+(5,5,'https://www.etix.com/ticket/p/6283097/lord-huron-troutdale-mcmenamins-edgefield-amphitheater',60,'2021-06-11 00:05:06','2021-06-11 00:05:06',NULL,0,1),
+(6,6,'https://event.etix.com/ticket/online/performanceSale.do?performance_id=3195916&method=restoreToken',60,'2021-06-12 00:05:06','2021-06-12 00:05:06',NULL,0,1),
+(7,7,'https://event.etix.com/ticket/online/performanceSale.do?performance_id=4604195&method=restoreToken',60,'2021-06-13 00:05:06','2021-06-13 00:05:06',NULL,0,1),
+(8,8,'https://event.etix.com/ticket/online/performanceSale.do?performance_id=5208883&partner_id=240&method=restoreToken&cobrand=theorangepeel',60,'2021-06-14 00:05:06','2021-06-14 00:05:06',NULL,0,1),
+(9,9,'https://event.etix.com/ticket/online/performanceSale.do?performance_id=7869766&method=restoreToken',60,'2021-06-15 00:05:06','2021-06-15 00:05:06',NULL,0,1),
+(10,10,'https://event.etix.com/ticket/online/performanceSale.do?performance_id=8456674&method=restoreToken',60,'2021-06-16 00:05:06','2021-06-16 00:05:06',NULL,0,1),
+(11,11,'https://event.etix.com/ticket/online/performanceSale.do?performance_id=8986960&method=restoreToken',60,'2021-06-17 00:05:06','2021-06-17 00:05:06',NULL,0,1),
+(12,12,'https://event.etix.com/ticket/p/8124944/lukas-nelson-promise-of-the-real-salt-lake-city-red-butte-garden?country=US&language=en',60,'2021-06-18 00:05:06','2021-06-18 00:05:06',NULL,0,1);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
