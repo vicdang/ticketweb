@@ -1,1 +1,3 @@
-# ticket_keeper
+# ticketweb
+
+MySQL + Nodejs + Angular11
