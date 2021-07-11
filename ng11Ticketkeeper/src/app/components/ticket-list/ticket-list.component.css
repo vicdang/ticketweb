@@ -55,3 +55,12 @@
 .custom-control {
   top: -12px;
 }
+
+.search-box {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.bt-contain {
+  float: right;
+}

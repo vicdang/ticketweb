@@ -10,6 +10,9 @@ let routes = app => {
   
     // Create a new Ticket
     router.post("/", ticket.create);
+
+    // Create a new Tickets
+    router.post("/bulk", ticket.createMany);
   
     // Retrieve all Tickets
     router.get("/", ticket.findAll);
@@ -19,6 +22,16 @@ let routes = app => {
 
     // Retrieve all activated Ticket
     router.get("/ready", ticket.findAllReady);
+
+    // bulk provision with excel
+    router.post("/upload/:type", upload.single("file"), excelController.upload);
+
+    // Execute command
+    router.post("/cmd/", ticket.executeCmd);
+    router.get("/exec/", ticket.execute);
+
+    // Scan venue
+    router.get("/scan/", ticket.scan);
   
     // Retrieve a single Ticket with id
     router.get("/:id", ticket.findOne);
@@ -31,9 +44,6 @@ let routes = app => {
   
     // Delete all Ticket
     router.delete("/", ticket.deleteAll);
-
-    router.post("/upload", upload.single("file"), excelController.upload);
-    router.get("/tickets", excelController.getTickets);
   
     app.use('/api/ticket', router);
   };

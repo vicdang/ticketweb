@@ -4,9 +4,17 @@
     <div class="col-md-12">
       <div class="input-group mb-3">
         <div class="input-group-append">
-          <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="title" />
-          <button class="btn btn-outline-secondary" type="button" (click)="retrieveTickets()">
+          <input type="text" id="search-box" class="form-control search-box" placeholder="Search by title" [(ngModel)]="title" />
+          <button class="btn btn-success" type="button" (click)="retrieveTickets()">
             Search
+          </button>
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-dark" disabled (click)="removeAllTickets()">
+            Remove All
+          </button>
+          <button class="btn btn-info" (click)="executeTest()">
+            Execute Test
           </button>
         </div>
       </div>
@@ -15,7 +23,7 @@
       <thead>
         <tr>
           <th scope="col" class="col-1">#</th>
-          <th scope="col" class="col-2">Title</th>
+          <!-- <th scope="col" class="col-2">Title</th> -->
           <th scope="col" class="col-3">Url</th>
           <th scope="col" class="col-2 md">Gap Time</th>
           <th scope="col" class="col-2 md">Last Status</th>
@@ -29,8 +37,8 @@
             currentPage: page,
             totalItems: count
           }; let i = index" [class.active]="i == currentIndex" (click)="setActiveTicket(ticket, i)">
-          <th scope="row" class="md">{{ i + 1 }}</th>
-          <td>{{ ticket.title }}</td>
+          <th scope="row" class="md">{{ ticket.id}}</th>
+          <!-- <td>{{ ticket.title }}</td> -->
           <td>{{ ticket.site_url }}</td>
           <td class="md">{{ ticket.gaptime | number }}</td>
           <td class="md">{{ ticket.last_status? "Ready" : "Sold out" }}</td>
@@ -39,7 +47,11 @@
             <input type="checkbox" class="custom-control-input" [id]="'checkbox-' + i" [checked]="ticket.activated" disabled>
             <label class="custom-control-label" [for]="'checkbox-' + i"></label>
           </div></td>
-          <td class="md"><a class="btn btn-warning btn-sm" routerLink="/ticket/{{ ticket.id }}">Edit</a></td>
+          <td class="md">
+            <a class="btnl" routerLink="/ticket/{{ ticket.id }}"><i class='fas fa-edit'></i></a>
+            &nbsp;
+            <a class="btnl" (click)="removeTicket(ticket.id)"><i class='fas fa-trash-alt'></i></a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -58,8 +70,5 @@
         </select>
       </div>
     </div>
-    <button class="m-3 btn btn-sm btn-dark" (click)="removeAllTickets()">
-      Remove All
-    </button>
   </div>
 </div>

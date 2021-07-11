@@ -1,4 +1,5 @@
 const db = require("../models");
+const { exec } = require("child_process");
 const Ticket = db.ticket;
 const Op = db.Sequelize.Op;
 
@@ -20,7 +21,7 @@ const getPagingData = (data, page, limit) => {
 // Create and Save a new Ticket
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.title) {
+    if (!req.body.site_url) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -29,7 +30,8 @@ exports.create = (req, res) => {
   
     // Create a Ticket
     const ticket = {
-      title: req.body.title,
+      // title: req.body.title,
+      title: req.body.site_url,
       site_url: req.body.site_url,
       gaptime: req.body.gaptime,
       last_status: req.body.last_status ? req.body.last_status : false,
@@ -48,6 +50,43 @@ exports.create = (req, res) => {
         });
       });
   };
+
+// Create and Save a new Ticket
+exports.createMany = (req, res) => {
+  let request = req.body;
+  // Validate request
+  let tickets = [];
+
+  request.forEach((row) => {
+    console.log(row);
+    let ticket = {
+      title: row['site_url'],
+      site_url: row['site_url'],
+      gaptime: row['gaptime'],
+      last_status: false,
+      activated: true
+    };
+    if (!ticket['site_url']) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    } else {tickets.push(ticket);};
+  });
+
+  Ticket.bulkCreate(tickets)
+    .then(() => {
+      res.status(200).send({
+        message: "Uploaded successfully.",
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Fail to import data into database!",
+        error: error.message,
+      });
+    });
+};
 
 // Retrieve all Ticket from the database.
 exports.findAll = (req, res) => {
@@ -172,7 +211,8 @@ exports.delete = (req, res) => {
 exports.deleteAll = (req, res) => {
     Ticket.destroy({
       where: {},
-      truncate: false
+      truncate: true,
+      restartIdentity: true
     })
       .then(nums => {
         res.send({ message: `${nums} Ticket were deleted successfully!` });
@@ -184,3 +224,55 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
+
+// Execute command
+exports.executeCmd = (req, res) => {
+  const cmd = req.body.cmd;
+  // exec("pm2 restart etix_demo", (error, stdout, stderr) => {
+    exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return res.status(500).send(error.message);
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return res.status(500).send(stderr);
+    }
+    console.log(`stdout: ${stdout}`);
+    res.status(200).send({ message: stdout });
+  });
+};
+
+// Execute command
+exports.execute = (req, res) => {
+  const cmd = "ls";
+    exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return res.status(500).send(error.message);
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return res.status(500).send(stderr);
+    }
+    console.log(`stdout: ${stdout}`);
+    res.status(200).send({ message: stdout });
+  });
+};
+
+// scan venue
+exports.scan = (req, res) => {
+  const cmd = "ls -rt /home/VicDang/ticketweb/Ticketkeeper/resources/static/assets/uploads/venues/ | tail -1";
+    exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return res.status(500).send(error.message);
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return res.status(500).send(stderr);
+    }
+    console.log(`stdout: ${stdout}`);
+    res.status(200).send({ message: stdout });
+  });
+};

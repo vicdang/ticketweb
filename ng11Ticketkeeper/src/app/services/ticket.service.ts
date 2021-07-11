@@ -40,4 +40,12 @@ export class TicketService {
   findByTitle(title: any): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${baseUrl}?title=${title}`);
   }
+
+  executeTest(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${baseUrl}/exec`);
+  }
+
+  scanVenue(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${baseUrl}/scan`);
+  }
 }

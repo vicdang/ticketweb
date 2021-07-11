@@ -13,11 +13,22 @@ const excelFilter = (req, file, cb) => {
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __basedir + "/resources/static/assets/uploads/");
+    if (req.params.type == "event") {
+      cb(null, __basedir + "/resources/static/assets/uploads/events/");
+    } else if (req.params.type == "venue") {
+      cb(null, __basedir + "/resources/static/assets/uploads/venues/");
+    } else {
+      cb(null, "/dev/null");
+    };
   },
   filename: (req, file, cb) => {
-    console.log(file.originalname);
-    cb(null, `${Date.now()}-ticket-${file.originalname}`);
+    if (req.params.type == "event") {
+      cb(null, `${Date.now()}-event-${file.originalname}`);
+    } else if (req.params.type == "venue") {
+      cb(null, `${Date.now()}-venue-${file.originalname}`);
+    } else {
+      cb(null, "");
+    };
   },
 });
 

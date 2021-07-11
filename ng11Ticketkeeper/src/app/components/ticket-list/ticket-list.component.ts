@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/models/ticket.model';
 import { TicketService } from 'src/app/services/ticket.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -15,10 +16,11 @@ export class TicketListComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 15;
-  pageSizes = [20, 50, 100];
+  pageSize = 10;
+  pageSizes = [10, 50, 100];
 
-  constructor(private ticketService: TicketService) { }
+  constructor(private ticketService: TicketService,
+    private notifyService : NotificationService) { }
 
   ngOnInit(): void {
     this.retrieveTickets();
@@ -85,9 +87,25 @@ export class TicketListComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
+          this.showToasterSuccess(response);
           this.refreshList();
         },
         error => {
+          this.showToasterError(error);
+          console.log(error);
+        });
+  }
+
+  removeTicket(ticket: number): void {
+    this.ticketService.delete(ticket)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.showToasterSuccess(response);
+          this.refreshList();
+        },
+        error => {
+          this.showToasterError(error);
           console.log(error);
         });
   }
@@ -102,6 +120,35 @@ export class TicketListComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  executeTest(): void {
+    this.ticketService.executeTest()
+      .subscribe(
+        data => {
+          this.showToasterSuccess(data);
+          console.log(data);
+        },
+        error => {
+          this.showToasterError(error);
+          console.log(error);
+        });
+  }
+
+  showToasterSuccess(data: any){
+    this.notifyService.showSuccess("Succeed !", "");
+  }
+
+  showToasterError(data: any){
+      this.notifyService.showError("Something is wrong", "");
+  }
+
+  showToasterInfo(){
+      this.notifyService.showInfo("This is info", "");
+  }
+
+  showToasterWarning(){
+      this.notifyService.showWarning("This is warning", "");
   }
 
 }
