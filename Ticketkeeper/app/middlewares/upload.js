@@ -25,7 +25,8 @@ var storage = multer.diskStorage({
     if (req.params.type == "event") {
       cb(null, `${Date.now()}-event-${file.originalname}`);
     } else if (req.params.type == "venue") {
-      cb(null, `${Date.now()}-venue-${file.originalname}`);
+      // cb(null, `${Date.now()}-venue-${file.originalname}`);
+      cb(null, "ETIX.xlsx");
     } else {
       cb(null, "");
     };
